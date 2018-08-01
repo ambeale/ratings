@@ -33,6 +33,14 @@ def user_list():
     users = User.query.all()
     return render_template("user_list.html", users=users)
 
+@app.route('/users/<user_id>')
+def show_user(user_id):
+    """Show page about user"""
+
+    user = User.query.filter(User.user_id == user_id)
+
+    return render_template("user_info.html", user)
+
 @app.route('/add-new')
 def add_user_form():
     """Show new user form"""
