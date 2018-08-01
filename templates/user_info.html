@@ -11,7 +11,7 @@ The user {{ user.user_id }} has the following info:<br><br>
 <h3>Ratings: </h3>
 <ul>
 {% for rating in user.ratings %}
-<li>{{ rating.movie.title }}: {{ rating.score}}</li>
+<li><a href="/movies/{{ rating.movie.movie_id }}">{{ rating.movie.title }}:</a> {{ rating.score}}</li>
 {% endfor %}
 </ul>
 

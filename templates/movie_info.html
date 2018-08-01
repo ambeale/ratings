@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Movie Details</h2>
+
+The movie {{ movie.movie_id }} has the following info:<br><br>
+
+
+<strong>Title:</strong> {{ movie.title }} <br>
+<strong>Released:</strong> {{ movie.released_at }}<br>
+<strong>IMDB Link:</strong> <a href="{{ movie.imdb_url }}">Dead Link!</a><br><br>
+
+<h3>Ratings: </h3>
+(ratings are out of 5)
+<ul>
+{% for rating in movie.ratings %}
+<li><a href="/users/{{ rating.user.user_id }}">User {{ rating.user.user_id }}</a> scored {{ rating.score}}.</li>
+{% endfor %}
+</ul>
+
+{% endblock %}

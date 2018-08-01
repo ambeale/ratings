@@ -82,6 +82,15 @@ def movie_list():
 
     return render_template('movie_list.html', movies=movies)
 
+
+@app.route('/movies/<movie_id>')
+def show_movie(movie_id):
+    """Show page about movie"""
+
+    movie = Movie.query.filter(Movie.movie_id == movie_id).first()
+
+    return render_template("movie_info.html", movie=movie)
+
 @app.route('/login-form')
 def login_page():
     """Show login form"""
