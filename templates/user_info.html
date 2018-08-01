@@ -1,8 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<h2>User Details</h2>
 
+The user {{ user.user_id }} has the following info:<br><br>
+<strong>Email:</strong> {{ user.email }} <br>
+<strong>Age:</strong> {{ user.age }}<br>
+<strong>Zipcode:</strong> {{ user.zipcode }}<br><br>
 
-
+<h3>Ratings: </h3>
+<ul>
+{% for rating in user.ratings %}
+<li>{{ rating.movie.title }}: {{ rating.score}}</li>
+{% endfor %}
+</ul>
 
 {% endblock %}

@@ -37,9 +37,9 @@ def user_list():
 def show_user(user_id):
     """Show page about user"""
 
-    user = User.query.filter(User.user_id == user_id)
+    user = User.query.filter(User.user_id == user_id).first()
 
-    return render_template("user_info.html", user)
+    return render_template("user_info.html", user=user)
 
 @app.route('/add-new')
 def add_user_form():
@@ -74,6 +74,13 @@ def add_user():
 
         return redirect('/')
 
+@app.route('/movies')
+def movie_list():
+    """Show list of movies"""
+
+    movies = Movie.query.order_by('title').all()
+
+    return render_template('movie_list.html', movies=movies)
 
 @app.route('/login-form')
 def login_page():
