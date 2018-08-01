@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ratings</title>
+</head>
+<body>
+	Ratings | <a href="/login-form">Log In/Out</a> | <a href="/add-new">Add new user</a>
+	<hr>
+
+	{% for message in get_flashed_messages() %}
+		<h2> <font color="red"> {{ message }} </font></h2>
+	{% endfor %}
+
+	{% block content %} Things {% endblock %}
+
+
+
+</body>
+</html>
