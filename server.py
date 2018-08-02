@@ -91,12 +91,12 @@ def show_movie(movie_id):
     """Show page about movie"""
 
     movie = Movie.query.filter(Movie.movie_id == movie_id).first()
-    logged_in = False
+    # logged_in = False
 
-    if session.get('user_id'):
-        logged_in = True
+    # if session.get('user_id'):
+    #     logged_in = True
 
-    return render_template("movie_info.html", movie=movie, logged_in=logged_in)
+    return render_template("movie_info.html", movie=movie)
 
 
 @app.route('/add-rating', methods=["POST"])
@@ -128,11 +128,17 @@ def add_rating():
 @app.route('/login-form')
 def login_page():
     """Show login form"""
-    if session.get('user_id'):
-        #show log out
-        return render_template('logout_page.html')
-    else:
-        return render_template('login_page.html')
+    # if session.get('user_id'):
+    #     #show log out
+    #     return render_template('logout_page.html')
+    # else:
+    return render_template('login_page.html')
+
+@app.route('/logout-form')
+def logout_page():
+    """Log user out"""
+
+    return render_template('logout_page.html')
 
 
 @app.route('/login', methods=["POST"])

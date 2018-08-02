@@ -7,10 +7,10 @@ The movie {{ movie.movie_id }} has the following info:<br><br>
 
 
 <strong>Title:</strong> {{ movie.title }} <br>
-<strong>Released:</strong> {{ movie.released_at }}<br>
+<strong>Released:</strong> {{ movie.released_at.strftime('%Y-%m-%d') }}<br>
 <strong>IMDB Link:</strong> <a href="{{ movie.imdb_url }}">Dead Link!</a><br><br>
 
-{% if logged_in %}
+{% if session.get("user_id") %}
 	<form action="/add-rating" method="POST">
 		Add your rating: <br>
 		<select name="rating">

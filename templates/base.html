@@ -4,7 +4,15 @@
 	<title>Ratings</title>
 </head>
 <body>
-	<a href="/">Ratings</a> | <a href="/login-form">Log In/Out</a> | <a href="/add-new">Add new user</a>
+	<a href="/">Ratings</a> |
+	
+	{% if session.get("user_id") %}
+		<a href="/logout-form">Log Out</a> 
+	{% else %}
+		<a href="/login-form">Log In</a>
+	{% endif %} 
+	
+	| <a href="/add-new">Add new user</a>
 	<hr>
 
 	{% for message in get_flashed_messages() %}
