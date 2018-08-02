@@ -10,12 +10,30 @@ The movie {{ movie.movie_id }} has the following info:<br><br>
 <strong>Released:</strong> {{ movie.released_at }}<br>
 <strong>IMDB Link:</strong> <a href="{{ movie.imdb_url }}">Dead Link!</a><br><br>
 
+{% if logged_in %}
+	<form action="/add-rating" method="POST">
+		Add your rating: <br>
+		<select name="rating">
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+		</select>
+		<input type="hidden" name="movie_id" value= "{{ movie.movie_id }}">
+		<input type="submit">
+	</form>
+{% endif %}
+
 <h3>Ratings: </h3>
 (ratings are out of 5)
-<ul>
-{% for rating in movie.ratings %}
-<li><a href="/users/{{ rating.user.user_id }}">User {{ rating.user.user_id }}</a> scored {{ rating.score}}.</li>
-{% endfor %}
-</ul>
+	<ul>
+		{% for rating in movie.ratings %}
+			<li>
+				<a href="/users/{{ rating.user.user_id }}">User {{ rating.user.user_id }}
+				</a> scored {{ rating.score}}.
+			</li>
+		{% endfor %}
+	</ul>
 
 {% endblock %}

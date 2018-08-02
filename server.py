@@ -33,6 +33,7 @@ def user_list():
     users = User.query.all()
     return render_template("user_list.html", users=users)
 
+
 @app.route('/users/<user_id>')
 def show_user(user_id):
     """Show page about user"""
@@ -40,6 +41,7 @@ def show_user(user_id):
     user = User.query.filter(User.user_id == user_id).first()
 
     return render_template("user_info.html", user=user)
+
 
 @app.route('/add-new')
 def add_user_form():
@@ -74,6 +76,7 @@ def add_user():
 
         return redirect('/')
 
+
 @app.route('/movies')
 def movie_list():
     """Show list of movies"""
@@ -88,8 +91,39 @@ def show_movie(movie_id):
     """Show page about movie"""
 
     movie = Movie.query.filter(Movie.movie_id == movie_id).first()
+    logged_in = False
 
-    return render_template("movie_info.html", movie=movie)
+    if session.get('user_id'):
+        logged_in = True
+
+    return render_template("movie_info.html", movie=movie, logged_in=logged_in)
+
+
+@app.route('/add-rating', methods=["POST"])
+def add_rating():
+    """Let user add a movie rating"""
+
+    new_rating = request.form.get("rating")
+    movie_id = request.form.get("movie_id")
+    user_id = session.get("user_id")
+
+    rating_check = Rating.query.filter(Rating.movie_id == movie_id,
+                                        Rating.user_id == user_id).first()
+
+    if rating_check:
+        #update
+        rating_check.score = new_rating
+        flash('Updated your rating!')
+
+    else:
+        rating = Rating(user_id=user_id, score=new_rating, movie_id=movie_id)
+        db.session.add(rating)
+        flash('Added your new rating!')
+
+    db.session.commit()
+
+    return redirect('/movies')
+
 
 @app.route('/login-form')
 def login_page():
@@ -128,6 +162,7 @@ def user_login():
     else:
         flash("Wrong password. Try again. Be careful. Jeeeeezeeee")
         return redirect('/login-form')
+
 
 @app.route('/logout')
 def user_logout():
